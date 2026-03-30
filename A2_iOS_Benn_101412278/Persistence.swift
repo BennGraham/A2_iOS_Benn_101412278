@@ -55,5 +55,35 @@ struct PersistenceController {
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
+        
+        if !UserDefaults.standard.bool(forKey: "hasSeededProducts") {
+            seedProducts(context: container.viewContext)
+            UserDefaults.standard.set(true, forKey: "hasSeededProducts")
+        }
+    }
+    
+    private func seedProducts(context: NSManagedObjectContext) {
+        let products: [(String, String, Double, String)] = [
+            ("Product 1", "Product 1 Description", 9.99, "Product 1 Provider")
+        ]
+        
+        for (name, desc, price, provider) in products {
+            let product = Product(context: context)
+            product.productId = UUID()
+            product.productName = name
+            product.productDescription = desc
+            product.productPrice = price
+            product.productProvider = provider
+        }
+        
+        // pattern fromt he default save and delete functions in contentview to save data
+        do {
+            try context.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+        
+        
     }
 }
