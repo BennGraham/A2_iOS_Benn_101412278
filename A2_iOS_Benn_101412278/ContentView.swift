@@ -21,7 +21,7 @@ struct ContentView: View {
             List {
                 ForEach(products) { product in
                     NavigationLink {
-                        Text(product.productDescription ?? "")
+                        ProductDetailView(product: product)
                     } label: {
                         Text(product.productName ?? "Product Name")
                     }
