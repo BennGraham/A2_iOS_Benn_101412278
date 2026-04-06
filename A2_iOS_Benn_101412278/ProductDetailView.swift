@@ -9,18 +9,25 @@ import SwiftUI
 import CoreData
 
 struct ProductDetailView:  View {
-    let product: Product
+    @Environment(\.managedObjectContext) private var viewContext
+
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Product.productName, ascending: true)],
+        animation: .default)
+    private var products: FetchedResults<Product>
     
     var body: some View {
-        VStack(spacing: 16) {
-            Spacer()
-            VStack {
-                Text(product.productName ?? "Product Name Placeholder")
-                Text(product.productDescription ?? "Product Description Placeholder")
-                Text(String(product.productPrice))
-                Text(product.productProvider ?? "Product Provider Placeholder")
+        NavigationView {
+            if let product = products.first {
+                VStack() {
+                    Text(product.productName ?? "Product name placeholder")
+                    Text(product.productDescription ?? "Product descrition placeholder")
+                    Text(String(product.productPrice))
+                    Text(product.productProvider ?? "Product provider placeholder")
+                }
+            } else {
+                Text("No products")
             }
-            .navigationTitle("Product Details")
         }
     }
 }
