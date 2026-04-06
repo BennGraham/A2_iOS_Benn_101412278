@@ -15,6 +15,13 @@ struct ProductDetailView:  View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Product.productName, ascending: true)],
         animation: .default)
     private var products: FetchedResults<Product>
+    var currentProduct: Product?
+    @State private var currentIndex: Int = 0
+    
+    private var product: Product? {
+        guard !products.isEmpty else { return nil }
+        return products[currentIndex]
+    }
     
     var body: some View {
         NavigationView {
