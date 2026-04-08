@@ -21,7 +21,7 @@ struct ProductListView: View {
             List {
                 ForEach(products) { product in
                     NavigationLink {
-                        ProductDetailView()
+                        ProductDetailView(currentProduct: product)
                     } label: {
                         VStack(alignment: .leading) {
                             Text(product.productName ?? "Product name placeholder")

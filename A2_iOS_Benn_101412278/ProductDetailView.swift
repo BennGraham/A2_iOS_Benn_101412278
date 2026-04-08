@@ -40,6 +40,11 @@ struct ProductDetailView:  View {
                             .disabled(currentIndex == products.count - 1)
                     }
                 }
+                .onAppear {
+                    if let current = currentProduct, let index = products.firstIndex(of: current) {
+                        currentIndex = index
+                    }
+                }
             } else {
                 Text("No products")
             }
