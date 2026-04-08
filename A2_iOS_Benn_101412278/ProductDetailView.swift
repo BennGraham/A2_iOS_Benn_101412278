@@ -29,7 +29,7 @@ struct ProductDetailView:  View {
                 VStack() {
                     Text(product.productName ?? "Product name placeholder")
                     Text(product.productDescription ?? "Product descrition placeholder")
-                    Text(String(product.productPrice))
+                    Text(String(format: "$%.2f", product.productPrice))
                     Text(product.productProvider ?? "Product provider placeholder")
                     
                     HStack {

@@ -15,6 +15,7 @@ struct ProductListView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Product.productName, ascending: true)],
         animation: .default)
     private var products: FetchedResults<Product>
+    @State private var showModal = false
 
     var body: some View {
         NavigationView {
@@ -34,32 +35,18 @@ struct ProductListView: View {
             }
             .toolbar {
                 ToolbarItem {
-                    Button(action: addItem) {
+                    Button {
+                        showModal = true
+                    } label: {
                         Label("Add Product", systemImage: "plus")
                     }
                 }
             }
-            Text("Select a product")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newProduct = Product(context: viewContext)
-            newProduct.productId = UUID()
-            newProduct.productName = "Product Name"
-            newProduct.productDescription = "Product Description"
-            newProduct.productPrice = 0.00
-            newProduct.productProvider = "Product Provider"
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            .sheet(isPresented: $showModal) {
+                AddProductView()
+                    .environment(\.managedObjectContext, viewContext)
             }
+            Text("Select a product")
         }
     }
 
