@@ -23,15 +23,16 @@ struct ProductListView: View {
                     NavigationLink {
                         ProductDetailView()
                     } label: {
-                        Text(product.productName ?? "Product Name")
+                        VStack(alignment: .leading) {
+                            Text(product.productName ?? "Product name placeholder")
+                            Text(product.productDescription ?? "")
+                                .font(.system(size: 12))
+                        }
                     }
                 }
                 .onDelete(perform: deleteItems)
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
                 ToolbarItem {
                     Button(action: addItem) {
                         Label("Add Product", systemImage: "plus")
