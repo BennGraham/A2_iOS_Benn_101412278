@@ -25,12 +25,20 @@ struct ProductDetailView:  View {
     
     var body: some View {
         NavigationView {
-            if let product = products.first {
+            if let product = product {
                 VStack() {
                     Text(product.productName ?? "Product name placeholder")
                     Text(product.productDescription ?? "Product descrition placeholder")
                     Text(String(product.productPrice))
                     Text(product.productProvider ?? "Product provider placeholder")
+                    
+                    HStack {
+                        Button("Previous") { currentIndex -= 1 }
+                            .disabled(currentIndex == 0)
+                        Text("\(currentIndex + 1)/\(products.count)")
+                        Button("Next") { currentIndex += 1 }
+                            .disabled(currentIndex == products.count - 1)
+                    }
                 }
             } else {
                 Text("No products")
