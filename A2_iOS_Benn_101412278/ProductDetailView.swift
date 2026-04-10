@@ -24,40 +24,39 @@ struct ProductDetailView:  View {
     }
     
     var body: some View {
-        NavigationView {
-            if let product = product {
-                VStack() {
-                    Form {
-                        Section(header: Text(product.productName ?? "Product name placeholder")
-                            .font(.system(size: 24, weight: .bold))
-                        ) {
-                            LabeledContent("Description", value: product.productDescription ?? "Product description placeholder")
-                            LabeledContent("Price", value: String(format: "$%.2f", product.productPrice))
-                            LabeledContent("Provider", value: product.productProvider ?? "Product provider placeholder")
+        if let product = product {
+            VStack() {
+                Form {
+                    Section(header: Text(product.productName ?? "Product name placeholder")
+                        .font(.system(size: 24, weight: .bold))
+                    ) {
+                        LabeledContent("Description", value: product.productDescription ?? "Product description placeholder")
+                        LabeledContent("Price", value: String(format: "$%.2f", product.productPrice))
+                        LabeledContent("Provider", value: product.productProvider ?? "Product provider placeholder")
+                    }
+                    
+                    Section {
+                        HStack {
+                            Button("Previous") { currentIndex -= 1 }
+                                .disabled(currentIndex == 0)
+                            Spacer()
+                            Text("\(currentIndex + 1)/\(products.count)")
+                            Spacer()
+                            Button("Next") { currentIndex += 1 }
+                                .disabled(currentIndex == products.count - 1)
                         }
-                        
-                        Section {
-                            HStack {
-                                Button("Previous") { currentIndex -= 1 }
-                                    .disabled(currentIndex == 0)
-                                Spacer()
-                                Text("\(currentIndex + 1)/\(products.count)")
-                                Spacer()
-                                Button("Next") { currentIndex += 1 }
-                                    .disabled(currentIndex == products.count - 1)
-                            }
-                            .buttonStyle(.borderless)
-                        }
+                        .buttonStyle(.borderless)
                     }
                 }
-                .onAppear {
-                    if let current = currentProduct, let index = products.firstIndex(of: current) {
-                        currentIndex = index
-                    }
-                }
-            } else {
-                Text("No products")
+                .navigationTitle("Browse")
             }
+            .onAppear {
+                if let current = currentProduct, let index = products.firstIndex(of: current) {
+                    currentIndex = index
+                }
+            }
+        } else {
+            Text("No products")
         }
     }
 }

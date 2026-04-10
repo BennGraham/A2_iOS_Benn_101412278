@@ -35,12 +35,15 @@ struct ProductListView: View {
                     } label: {
                         VStack(alignment: .leading) {
                             Text(product.productName ?? "Product name placeholder")
+                                .font(.headline)
                             Text(product.productDescription ?? "")
                                 .font(.system(size: 12))
+                                .foregroundColor(.secondary)
                         }
                     }
                 }
                 .onDelete(perform: deleteItems)
+                .navigationTitle("Products")
             }
             .toolbar {
                 ToolbarItem {
@@ -56,7 +59,6 @@ struct ProductListView: View {
                     .environment(\.managedObjectContext, viewContext)
             }
             .searchable(text: $searchQuery, prompt: "Search by name or description")
-            Text("Select a product")
     }
 
     private func deleteItems(offsets: IndexSet) {
