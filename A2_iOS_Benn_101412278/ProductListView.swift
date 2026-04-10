@@ -28,9 +28,8 @@ struct ProductListView: View {
     }
     
     var body: some View {
-        NavigationView {
             List {
-                ForEach(products) { product in
+                ForEach(filteredProducts) { product in
                     NavigationLink {
                         ProductDetailView(currentProduct: product)
                     } label: {
@@ -56,13 +55,13 @@ struct ProductListView: View {
                 AddProductView()
                     .environment(\.managedObjectContext, viewContext)
             }
+            .searchable(text: $searchQuery)
             Text("Select a product")
-        }
     }
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
-            offsets.map { products[$0] }.forEach(viewContext.delete)
+            offsets.map { filteredProducts[$0] }.forEach(viewContext.delete)
 
             do {
                 try viewContext.save()
