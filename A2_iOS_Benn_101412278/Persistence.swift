@@ -17,8 +17,8 @@ struct PersistenceController {
         for i in 0..<10 {
             let product = Product(context: viewContext)
             product.productId = UUID()
-            product.productName = "Name \(i)"
-            product.productDescription = "Description \(i)"
+            product.productName = "Product \(i)"
+            product.productDescription = "Description for product \(i). This is the description for product \(i)."
             product.productPrice = Double.random(in: 0.99...9.99)
             product.productProvider = "Provider \(i)"
         }

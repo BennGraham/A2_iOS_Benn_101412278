@@ -27,17 +27,27 @@ struct ProductDetailView:  View {
         NavigationView {
             if let product = product {
                 VStack() {
-                    Text(product.productName ?? "Product name placeholder")
-                    Text(product.productDescription ?? "Product descrition placeholder")
-                    Text(String(format: "$%.2f", product.productPrice))
-                    Text(product.productProvider ?? "Product provider placeholder")
-                    
-                    HStack {
-                        Button("Previous") { currentIndex -= 1 }
-                            .disabled(currentIndex == 0)
-                        Text("\(currentIndex + 1)/\(products.count)")
-                        Button("Next") { currentIndex += 1 }
-                            .disabled(currentIndex == products.count - 1)
+                    Form {
+                        Section(header: Text(product.productName ?? "Product name placeholder")
+                            .font(.system(size: 24, weight: .bold))
+                        ) {
+                            LabeledContent("Description", value: product.productDescription ?? "Product description placeholder")
+                            LabeledContent("Price", value: String(format: "$%.2f", product.productPrice))
+                            LabeledContent("Provider", value: product.productProvider ?? "Product provider placeholder")
+                        }
+                        
+                        Section {
+                            HStack {
+                                Button("Previous") { currentIndex -= 1 }
+                                    .disabled(currentIndex == 0)
+                                Spacer()
+                                Text("\(currentIndex + 1)/\(products.count)")
+                                Spacer()
+                                Button("Next") { currentIndex += 1 }
+                                    .disabled(currentIndex == products.count - 1)
+                            }
+                            .buttonStyle(.borderless)
+                        }
                     }
                 }
                 .onAppear {
