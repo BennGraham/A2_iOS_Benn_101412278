@@ -23,7 +23,7 @@ struct ProductListView: View {
             return Array(products)
         }
         return products.filter {
-            product in product.productName?.contains(searchQuery) == true || product.productDescription?.contains(searchQuery) == true
+            product in product.productName?.localizedCaseInsensitiveContains(searchQuery) == true || product.productDescription?.localizedCaseInsensitiveContains(searchQuery) == true
         }
     }
     
