@@ -55,7 +55,7 @@ struct ProductListView: View {
                 AddProductView()
                     .environment(\.managedObjectContext, viewContext)
             }
-            .searchable(text: $searchQuery)
+            .searchable(text: $searchQuery, prompt: "Search by name or description")
             Text("Select a product")
     }
 
