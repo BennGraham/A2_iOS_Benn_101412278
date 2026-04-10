@@ -16,7 +16,17 @@ struct ProductListView: View {
         animation: .default)
     private var products: FetchedResults<Product>
     @State private var showModal = false
-
+    @State private var searchQuery = ""
+    
+    private var filteredProducts: [Product] {
+        if searchQuery.isEmpty {
+            return Array(products)
+        }
+        return products.filter {
+            product in product.productName?.contains(searchQuery) == true || product.productDescription?.contains(searchQuery) == true
+        }
+    }
+    
     var body: some View {
         NavigationView {
             List {
