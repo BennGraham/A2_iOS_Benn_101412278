@@ -64,7 +64,16 @@ struct PersistenceController {
     
     private func seedProducts(context: NSManagedObjectContext) {
         let products: [(String, String, Double, String)] = [
-            ("Product 1", "Product 1 Description", 9.99, "Product 1 Provider")
+            ("Product 1", "Product 1 Description", 9.99, "Product 1 Provider"),
+            ("Product 2", "Product 2 Description", 12.99, "Product 2 Provider"),
+            ("Product 3", "Product 3 Description", 1.99, "Product 3 Provider"),
+            ("Product 4", "Product 4 Description", 24.99, "Product 4 Provider"),
+            ("Product 5", "Product 5 Description", 112.99, "Product 5 Provider"),
+            ("Product 6", "Product 6 Description", 92.99, "Product 6 Provider"),
+            ("Product 7", "Product 7 Description", 52.99, "Product 7 Provider"),
+            ("Product 8", "Product 8 Description", 22.50, "Product 8 Provider"),
+            ("Product 9", "Product 9 Description", 56.99, "Product 9 Provider"),
+            ("Product 10", "Product 10 Description", 1900.76, "Product 10 Provider")
         ]
         
         for (name, desc, price, provider) in products {
